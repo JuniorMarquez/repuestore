@@ -1,0 +1,32 @@
+#quickview-bg-block {  display: none; background-color : rgba(0,0,0,.9); top: 0; left: 0; right: 0; bottom: 0;  margin: auto; position: fixed; z-index: 10001;  }
+.quickview-load-img {  display: none; position: fixed; top: 50%; left: 0; right: 0; bottom: 0; text-align: center; z-index: 10002; margin: auto;}
+.a-qv-close {
+    position: absolute;
+    z-index: 10002;
+    top: 15px;
+    right: 15px;
+    font-size:  14px;
+    color: red;
+}
+.qv-button-container { position: relative }
+#quickview-content {
+    position: fixed;
+    background-color: #FFFFFF;
+    border: solid 2px #000000;
+    display: none;
+    padding: 20px;
+    z-index: 10003;
+    width: 86%;
+    height: 80%;
+    top: 10%;
+    left: 7%;
+    overflow-y: scroll !important;
+}
+.product-quickview .container{
+	width: 100%;
+}
+@media(max-width: 1024px){
+	.btn-quickview{
+		display: none !important
+	}
+}

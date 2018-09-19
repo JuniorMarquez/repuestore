@@ -1,0 +1,103 @@
+<div class="featured-cat-thumb title2">
+	<div class="title-container">
+		<div class="module-title">
+			<h2>{{ heading_title }}</h2>
+			<!-- <p class="module-description">{{ module_description }}</p> -->
+		</div>
+	</div>
+		<div class="featured-categories-container">
+		<div class="row">
+		{% if categories %}
+			<div class="featured-categories-contents">
+			{% set count, rows = 0, config_slide.f_rows %}
+			{% if not rows %}
+				{% set rows = 1 %}
+			{% endif %}
+			<div class="owl-featured-categories">
+				{% for category in categories %}
+					{% if count == 0 %}
+						<div class="first-rows">
+					{% elseif count == 2 %}
+						<div class="orther-rows">
+					{% endif %}
+					{% if count % rows == 0 %}
+					<div class="row_items {% if count == 0 or count == 1 %}{{' col-sm-6'}}{% else %}{{' col-sm-4'}}{% endif %}">
+					{% endif %}
+					{% set count = count + 1 %}
+						<div class="fcategory-content">
+							<div class="content-thumb">
+								{% if category.homethumb_image %}
+								<img class="img-homethumb" src="{{ category.homethumb_image }}" alt="{{ category.name }}" />
+								{% endif %}
+								<h2 class="name">{{ category.name }}</h2>
+								<a class="view-all" href="{{ category.href }}">{{ text_viewall }}</a>
+								{% if config_slide.show_description %}
+									<p class="dec">{{ category.description }}</p>
+								{% endif %}
+								{% if config_slide.show_sub_category %}
+									{% set number_sub = config_slide.number_sub %}
+									{% if category.children %}
+										{% set sub_count = 0 %}
+										<ul class="sub-featured-categories list-unstyled">
+											{% for subcate in category.children %}
+												{% if sub_count < number_sub %}
+												<li><i class="fa-angle-right fa"></i><a href="{{ subcate.href }}">{{ subcate.name }}</a></li>
+												{% endif %}
+												{% set sub_count = sub_count + 1 %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+								{% endif %}
+							</div>							
+						</div>
+					{% if (count % rows == 0) or (count == categories|length) %}
+					</div>
+					{% endif %}
+					{% if (count == 2) or (count >= 3 and count == categories|length) %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			</div>
+		{% else %}
+			{{ text_empty_featurer_category }}
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% if categories %}
+<script type="text/javascript">
+$(document).ready(function() { 
+	<!-- $(".owl-featured-categories").owlCarousel({ -->
+	 	<!-- items: {{ config_slide.items }}, -->
+        <!-- loop: false, -->
+        <!-- margin: 0, -->
+        <!-- nav: {% if config_slide.f_show_nextback %} true {% else %} false {% endif %}, -->
+        <!-- dots: {% if config_slide.f_show_ctr %} true {% else %} false {% endif %}, -->
+        <!-- autoplay:  {% if config_slide.autoplay %} true {% else %} false {% endif %}, -->
+        <!-- autoplaySpeed: {% if config_slide.f_speed %} {{ config_slide.f_speed }} {% else %} 3000 {% endif %}, -->
+        <!-- navSpeed: {% if config_slide.f_speed %} {{ config_slide.f_speed }} {% else %} 3000 {% endif %}, -->
+        <!-- dotsSpeed: {% if config_slide.f_speed %} {{ config_slide.f_speed }} {% else %} 3000 {% endif %}, -->
+		<!-- lazyLoad: true, -->
+		<!-- navText : ['<i class="fa fa-chevron-left"></i>','<i class="fa fa-chevron-right"></i>'], -->
+        <!-- responsive:{ -->
+			<!-- 0:{ -->
+				<!-- items: 2 -->
+			<!-- }, -->
+			<!-- 481:{ -->
+				<!-- items: 2 -->
+			<!-- }, -->
+			<!-- 769:{ -->
+				<!-- items: 3 -->
+			<!-- }, -->
+			<!-- 1024:{ -->
+				<!-- items: 3 -->
+			<!-- }, -->
+			<!-- 1200:{ -->
+				<!-- items: {{ config_slide.items }} -->
+			<!-- }, -->
+        <!-- } -->
+	<!-- }); -->
+});
+</script>
+{% endif %}

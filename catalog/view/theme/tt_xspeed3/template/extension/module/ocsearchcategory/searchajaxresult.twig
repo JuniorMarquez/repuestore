@@ -1,0 +1,41 @@
+{% if products|length == 0 %}
+    <p class="ajax-result-msg">{{ text_empty }}</p>
+{% else %}
+    <ul class="ajax-result-list list-unstyled">
+        {% set i = 0 %}
+        {% for product in products %}
+            {% set i = i + 1 %}
+            <li class="ajax-result-item col-lg-6 col-xs-12">
+                <div class="product-info">
+                    {% if product_img_enabled == 1 %}
+                        <a class="product-image" href="{{ product.href }}">
+                            <div class="product-image">
+                                <img src="{{ product.thumb }}" alt="{{ product.name }}" />
+                            </div>
+                        </a>
+                    {% endif %}
+                    <div class="detail">
+                        <h4 class="product-name">
+                            <a href="{{ product.href }}">{{ product.name }}</a>
+                        </h4>
+                        {% if product_price_enabled == 1 %}
+                            {% if product.price %}
+                            <div class="price-container">
+                                {% if product.special %}
+									<span class="price-new">{{ product.special }}</span>
+                                    <span class="price-old">{{ product.price }}</span>
+                                {% else %}
+									{{ product.price }}
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </li>
+            {% if i % 2 == 0 %}
+            <div class="clearfix"></div>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
